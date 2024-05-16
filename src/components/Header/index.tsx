@@ -17,6 +17,7 @@ let session = {
 
 const Header = () => {
   //const { data: session } = useSession();
+  
 
   const themeSwitcherRef = useRef<HTMLDivElement>(null);
 
@@ -72,7 +73,7 @@ const Header = () => {
                 {pathUrl !== "/" ? (
                   <>
                     <Image
-                      src={`/images/logo/LogoMSI2024.jpg`}
+                      src={`/images/logo/logo_isotipo.png`}
                       alt="logo"
                       width={240}
                       height={30}

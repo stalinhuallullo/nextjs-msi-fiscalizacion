@@ -9,11 +9,10 @@ import SocialSignIn from "../SocialSignIn";
 import SwitchOption from "../SwitchOption";
 import MagicLink from "../MagicLink";
 import Loader from "@/components/Common/Loader";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/app/i18n/client";
 
-const Signin = () => {
-  const { t } = useTranslation();
-
+const Signin = (lng: any) => {
+  const { t } = useTranslation(lng, 'auth');
   const router = useRouter();
 
   const [loginData, setLoginData] = useState({
@@ -22,36 +21,36 @@ const Signin = () => {
     checkboxToggle: false,
   });
 
-  const [isPassword, setIsPassword] = useState(false);
+  //const [isPassword, setIsPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const loginUser = (e: any) => {
     e.preventDefault();
 
-    setLoading(true);
-    signIn("credentials", { ...loginData, redirect: false })
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error(callback?.error);
-          console.log(callback?.error);
-          setLoading(false);
-          return;
-        }
+    // setLoading(true);
+    // signIn("credentials", { ...loginData, redirect: false })
+    //   .then((callback) => {
+    //     if (callback?.error) {
+    //       toast.error(callback?.error);
+    //       console.log(callback?.error);
+    //       setLoading(false);
+    //       return;
+    //     }
 
-        if (callback?.ok && !callback?.error) {
-          toast.success("Login successful");
-          setLoading(false);
-          router.push("/");
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.message);
-        toast.error(err.message);
-      });
+    //     if (callback?.ok && !callback?.error) {
+    //       toast.success("Login successful");
+    //       setLoading(false);
+    //       router.push("/");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     console.log(err.message);
+    //     toast.error(err.message);
+    //   });
   };
 
-  return ( 
+  return (
     <section className="bg-[#F4F7FF] py-14 dark:bg-dark lg:py-20">
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
@@ -63,7 +62,7 @@ const Signin = () => {
               <div className="mb-10 text-center">
                 <Link href="/" className="mx-auto inline-block max-w-[160px]">
                   <Image
-                    src="/images/logo/logo.svg"
+                    src="/images/logo/LogoMSI2024.jpg"
                     alt="logo"
                     width={140}
                     height={30}
@@ -84,7 +83,7 @@ const Signin = () => {
               <span className="z-1 relative my-8 block text-center">
                 <span className="-z-1 absolute left-0 top-1/2 block h-px w-full bg-stroke dark:bg-dark-3"></span>
                 <span className="text-body-secondary relative z-10 inline-block bg-white px-3 text-base dark:bg-dark-2">
-                  OR {t('app_title')} sss
+                {t("or")}
                 </span>
               </span>
 
@@ -94,38 +93,38 @@ const Signin = () => {
               /> */}
 
               {/* {isPassword ? ( */}
-                <form onSubmit={(e) => e.preventDefault()}>
-                  <div className="mb-[22px]">
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      onChange={(e) =>
-                        setLoginData({ ...loginData, email: e.target.value })
-                      }
-                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-                  <div className="mb-[22px]">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) =>
-                        setLoginData({ ...loginData, password: e.target.value })
-                      }
-                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-                  <div className="mb-9">
-                    <button
-                      onClick={loginUser}
-                      type="submit"
-                      className="flex w-full cursor-pointer items-center justify-center rounded-md border border-primary bg-primary px-5 py-3 text-base text-white transition duration-300 ease-in-out hover:bg-primary/90"
-                    >
-                      Sign In {loading && <Loader />}
-                    </button>
-                  </div>
-                </form>
-               {/* ) : (
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div className="mb-[22px]">
+                  <input
+                    type="email"
+                    placeholder={t("email")}
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, email: e.target.value })
+                    }
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+                <div className="mb-[22px]">
+                  <input
+                    type="password"
+                    placeholder={t("password")}
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, password: e.target.value })
+                    }
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+                <div className="mb-9">
+                  <button
+                    onClick={loginUser}
+                    type="submit"
+                    className="flex w-full cursor-pointer items-center justify-center rounded-md border border-primary bg-primary px-5 py-3 text-base text-white transition duration-300 ease-in-out hover:bg-primary/90"
+                  >
+                    {t("sign_in")} {loading && <Loader />}
+                  </button>
+                </div>
+              </form>
+              {/* ) : (
                  <MagicLink />
                )} */}
 
@@ -133,12 +132,12 @@ const Signin = () => {
                 href="/forgot-password"
                 className="mb-2 inline-block text-base text-dark hover:text-primary dark:text-white dark:hover:text-primary"
               >
-                Forget Password?
+                {t("forget_password")}
               </Link>
               <p className="text-body-secondary text-base">
-                Not a member yet?{" "}
+                {t("not_a_member_yet")}{" "}
                 <Link href="/signup" className="text-primary hover:underline">
-                  Sign Up
+                  {t("sign_up")}
                 </Link>
               </p>
 

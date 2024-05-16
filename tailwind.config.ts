@@ -13,7 +13,12 @@ const config: Config = {
         primary: '#3490dc', // Define your desired primary color hex code
       },
     },
+    colors: {
+      primary: '#5c6ac4',
+      secondary: '#ecc94b',
+    }
   },
+
   // theme: {
   //   extend: {
   //     backgroundImage: {
